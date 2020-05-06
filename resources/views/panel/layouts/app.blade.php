@@ -156,217 +156,29 @@
             <li class="{{ Request::is('panel') ? 'active' : '' }}">
                 <a href="{{ route('panel.dashboard') }}"> <span class="nav-label"> <i class="fa fa-home" ></i> Dashboard</span> </a>
             </li>
-            <li class="{{ Request::is('panel/data/daerah*') ? 'active' : '' }}">
-                <a href="{{ route('panel.daerah') }}"> <span class="nav-label"> <i class="fa fa-home" ></i> Data Daerah</span> </a>
-            </li>
+            @role('superadmin')
             <li class="{{ Request::is('panel/data/bansos*') ? 'active' : '' }}">
-                <a href="{{ route('panel.bansos') }}"> <span class="nav-label"> <i class="fa fa-home" ></i> Data Bansos</span> </a>
+                <a href="{{ route('panel.bansos') }}"> <span class="nav-label"> <i class="fa fa-users" ></i> Penerima Bantuan</span> </a>
             </li>
-            @role('superadmin')
-            <!-- <li class="{{ Request::is('panel/pegawai*') ? 'active' : '' }}">
-                <a href="#"><span class="nav-label"><i class="fa fa-gear" ></i> Master Data</span><span class="fa arrow"></span> </a>
-                <ul class="nav nav-second-level">
-                    <li class="{{ Request::is('panel/pegawai') ? 'active' : '' }}">
-                        <a href="{{ route('panel.pegawai') }}"> <span class="nav-label"> <i class="fa fa-users" ></i> Pegawai</span> </a>
-                    </li>
-                </ul>
+            <li class="{{ Request::is('panel/data/aduan*') ? 'active' : '' }}">
+                <a href="{{ route('panel.aduan') }}"> <span class="nav-label"> <i class="fa fa-book" ></i> Aduan</span> </a>
             </li>
-
-            <li class="{{ Request::is('panel/penghargaan/*') ? 'active' : '' }}">
-                <a href="#"><span class="nav-label"><i class="fa fa-gear" ></i> Penghargaan</span><span class="fa arrow"></span> </a>
-                <ul class="nav nav-second-level">
-                    <li class="{{ Request::is('panel/penghargaan/periode') ? 'active' : '' }}">
-                        <a href="{{ route('panel.periode') }}"> <span class="nav-label"> <i class="fa fa-calendar" ></i> Periode</span> </a>
-                    </li>
-                    <li class="{{ Request::is('panel/penghargaan/usulan-pegawai') ? 'active' : '' }}">
-                        <a href="{{ route('panel.usulan.pegawai') }}"> <span class="nav-label"> <i class="fa fa-user-plus" ></i> Usulan Pegawai</span> </a>
-                    </li>
-                    <li class="{{ Request::is('panel/penghargaan/penerima') ? 'active' : '' }}">
-                        <a href="{{ route('panel.penerima.penghargaan') }}"> <span class="nav-label"> <i class="fa fa-user" ></i> Penerima</span> </a>
-                    </li>
-                </ul>
+            <li class="{{ Request::is('panel/konfigurasi/masters/users*') ? 'active' : '' }}">
+                <a href="{{ route('panel.users') }}"> <span class="nav-label"> <i class="fa fa-gear" ></i> Users</span> </a>
             </li>
-            
-            <li class="{{ Request::is('panel/laporan/*') ? 'active' : '' }}">
-                <a href="#"><span class="nav-label"><i class="fa fa-book" ></i> Laporan</span><span class="fa arrow"></span> </a>
-                <ul class="nav nav-second-level">
-                    <li class="{{ Request::is('panel/laporan/hal-laporan') ? 'active' : '' }}">
-                        <a href="{{ route('panel.pagelaporan') }}"> <span class="nav-label">Laporan Per SKPD</span> </a>
-                    </li>
-                    <li class="{{ Request::is('panel/laporan/hal-laporan-semua') ? 'active' : '' }}">
-                        <a href="{{ route('panel.pagelaporanall') }}"> <span class="nav-label">Laporan Semua</span> </a>
-                    </li>
-                </ul>
-            </li>
-
-            <li class="{{ Request::is('panel/konfigurasi/*') ? 'active' : '' }}">
-                <a href="#"><span class="nav-label"><i class="fa fa-gear" ></i> Konfigurasi</span><span class="fa arrow"></span> </a>
-                <ul class="nav nav-second-level">
-                    <li class="{{ Request::is('panel/konfigurasi/masters/users') ? 'active' : '' }}">
-                        <a href="{{ route('panel.users') }}"><span class="nav-label"><i class="fa fa-home" ></i> Users</span></a>
-                    </li> 
-                    <li class="{{ Request::is('panel/konfigurasi/persyaratan') ? 'active' : '' }}">
-                        <a href="{{ route('panel.persyaratan') }}"><span class="nav-label"><i class="fa fa-home" ></i> Persyaratan</span></a>
-                    </li> 
-                </ul>
-            </li> -->
             @endrole
-
+            @role('adminaduan')
+            <li class="{{ Request::is('panel/data/aduan*') ? 'active' : '' }}">
+                <a href="{{ route('panel.aduan') }}"> <span class="nav-label"> <i class="fa fa-book" ></i> Aduan</span> </a>
+            </li>
+            @endrole
             @role('admin')
-            <li class="{{ Request::is('panel/pegawai*') ? 'active' : '' }}">
-                <a href="#"><span class="nav-label"><i class="fa fa-gear" ></i> Master Data</span><span class="fa arrow"></span> </a>
-                <ul class="nav nav-second-level">
-                    <li class="{{ Request::is('panel/pegawai') ? 'active' : '' }}">
-                        <a href="{{ route('panel.pegawai') }}"> <span class="nav-label"> <i class="fa fa-users" ></i> Pegawai</span> </a>
-                    </li>
-                </ul>
+            <li class="{{ Request::is('panel/data/bansos*') ? 'active' : '' }}">
+                <a href="{{ route('panel.bansos') }}"> <span class="nav-label"> <i class="fa fa-users" ></i> Penerima Bantuan</span> </a>
             </li>
-
-            <li class="{{ Request::is('panel/penghargaan/*') ? 'active' : '' }}">
-                <a href="#"><span class="nav-label"><i class="fa fa-gear" ></i> Penghargaan</span><span class="fa arrow"></span> </a>
-                <ul class="nav nav-second-level">
-                    <li class="{{ Request::is('panel/penghargaan/usulan-pegawai') ? 'active' : '' }}">
-                        <a href="{{ route('panel.usulan.pegawai') }}"> <span class="nav-label"> <i class="fa fa-user-plus" ></i> Usulan Pegawai</span> </a>
-                    </li>
-                    <li class="{{ Request::is('panel/penghargaan/status') ? 'active' : '' }}">
-                        <a href="{{ route('panel.status') }}"> <span class="nav-label"> <i class="fa fa-user-plus" ></i> Status</span> </a>
-                    </li>
-                </ul>
+            <li class="{{ Request::is('panel/data/pemberi*') ? 'active' : '' }}">
+                <a href="{{ route('panel.pemberi.bantuan') }}"> <span class="nav-label"> <i class="fa fa-users" ></i> Pemberi Bantuan</span> </a>
             </li>
-            @endrole
-
-            @role('verifikator')
-            <li class="{{ Request::is('panel/penghargaan/*') ? 'active' : '' }}">
-                <a href="#"><span class="nav-label"><i class="fa fa-gear" ></i> Penghargaan</span><span class="fa arrow"></span> </a>
-                <ul class="nav nav-second-level">
-                    <li class="{{ Request::is('panel/penghargaan/periode') ? 'active' : '' }}">
-                        <a href="{{ route('panel.periode') }}"> <span class="nav-label"> <i class="fa fa-calendar" ></i> Periode</span> </a>
-                    </li>
-                    <li class="{{ Request::is('panel/penghargaan/usulan-pegawai') ? 'active' : '' }}">
-                        <a href="{{ route('panel.usulan.pegawai') }}"> <span class="nav-label"> <i class="fa fa-user-plus" ></i> Usulan Pegawai</span> </a>
-                    </li>
-                    <li class="{{ Request::is('panel/penghargaan/penerima') ? 'active' : '' }}">
-                        <a href="{{ route('panel.penerima.penghargaan') }}"> <span class="nav-label"> <i class="fa fa-user" ></i> Penerima</span> </a>
-                    </li>
-                </ul>
-            </li>
-            <li class="{{ Request::is('panel/laporan/*') ? 'active' : '' }}">
-                <a href="#"><span class="nav-label"><i class="fa fa-book" ></i> Laporan</span><span class="fa arrow"></span> </a>
-                <ul class="nav nav-second-level">
-                    <li class="{{ Request::is('panel/laporan/hal-laporan') ? 'active' : '' }}">
-                        <a href="{{ route('panel.pagelaporan') }}"> <span class="nav-label">Laporan Per SKPD</span> </a>
-                    </li>
-                    <li class="{{ Request::is('panel/laporan/hal-laporan-semua') ? 'active' : '' }}">
-                        <a href="{{ route('panel.pagelaporanall') }}"> <span class="nav-label">Laporan Semua</span> </a>
-                    </li>
-                </ul>
-            </li>
-            @endrole
-
-
-
-
-
-
-
-
-
-            @role('superadmin')
-            <!-- <li class="{{ Request::is('panel/master/*') ? 'active' : '' }}">
-                <a href="#"><span class="nav-label"><i class="fa fa-home" ></i> Master</span><span class="fa arrow"></span> </a>
-                
-                <ul class="nav nav-second-level">
-                    <li class="{{ Request::is('panel/master/belanja*') ? 'active' : '' }}">
-                        <a href="{{ route('panel.master.belanja') }}"> <span class="nav-label">Jenis Belanja</span> </a>
-                    </li>
-                    <li class="{{ Request::is('panel/master/kodefikasi*') ? 'active' : '' }}">
-                        <a href="{{ route('panel.master.kodefikasi') }}"> <span class="nav-label">Kodefikasi Masalah</span> </a>
-                    </li>
-                </ul>
-            </li>-->
-<!--             
-            <li class="{{ Request::is('panel/masters/users') ? 'active' : '' }}">
-                <a href="{{ route('panel.users') }}"><span class="nav-label"><i class="fa fa-home" ></i> Users</span></a>
-            </li> 
-            <li class="{{ Request::is('panel/hal-laporan') ? 'active' : '' }}">
-                <a href="{{ route('panel.pagelaporan') }}"> <span class="nav-label"> <i class="fa fa-home" ></i> Laporan</span> </a>
-            </li> -->
-            @endrole
-
-            @role('admin')
-            <!-- <li class="{{ Request::is('panel/masters/users/skpd*') ? 'active' : '' }}">
-                <a href="{{ route('panel.usersSkpd') }}"> <span class="nav-label"> <i class="fa fa-home" ></i> Users</span> </a>
-            </li> -->
-            <!-- <li class="{{ Request::is('panel/hal-laporan') ? 'active' : '' }}">
-                <a href="{{ route('panel.pagelaporan') }}"> <span class="nav-label"> <i class="fa fa-home" ></i> Laporan</span> </a>
-            </li> -->
-            @endrole
-
-            @role('skpd')
-
-            <li class="{{ Request::is('panel/master/*') ? 'active' : '' }}">
-                <a href="#"><span class="nav-label"><i class="fa fa-home" ></i> Master</span><span class="fa arrow"></span> </a>
-                
-                <ul class="nav nav-second-level">
-                    <li class="{{ Request::is('panel/ms_bidang') ? 'active' : '' }}">
-                        <a href="{{ route('panel.ms_bidang') }}"> <span class="nav-label"></i> Master Bidang</span> </a>
-                    </li>
-                    <li class="{{ Request::is('panel/ms_subbidang') ? 'active' : '' }}">
-                        <a href="{{ route('panel.ms_subbidang') }}"> <span class="nav-label"> </i> Master Sub Bidang</span> </a>
-                    </li>
-                    <li class="{{ Request::is('panel/ms_program') ? 'active' : '' }}">
-                        <a href="{{ route('panel.ms_program') }}"> <span class="nav-label"> </i> Master Program</span> </a>
-                    </li>
-                    <li class="{{ Request::is('panel/ms_kegiatan') ? 'active' : '' }}">
-                        <a href="{{ route('panel.ms_kegiatan') }}"> <span class="nav-label"> </i> Master Kegiatan</span> </a>
-                    </li>
-                </ul>
-            </li>
-
-            <li class="{{ Request::is('panel/program') ? 'active' : '' }}">
-                <a href="{{ route('panel.program') }}"> <span class="nav-label"> <i class="fa fa-home" ></i> Data Dak</span> </a>
-            </li>
-            <li class="{{ Request::is('panel/hal-laporan') ? 'active' : '' }}">
-                <a href="{{ route('panel.pagelaporan') }}"> <span class="nav-label"> <i class="fa fa-home" ></i> Laporan</span> </a>
-            </li>
-            @endrole
-
-
-
-            <!-- <li class="{{ Request::is('panel/profil*') ? 'active' : '' }}">
-                <a href="{{ route('panel.profil') }}"> <span class="nav-label"> <i class="fa fa-file-text-o" ></i> Saber Hoax </span></a>
-            </li>
-            <li class="{{ Request::is('panel/post*') ? 'active' : '' }}">
-                <a href="{{ route('panel.post') }}"> <span class="nav-label"> <i class="fa fa-book" ></i> Infografik</span> </a>
-            </li>
-            <li class="{{ Request::is('panel/lapor*') ? 'active' : '' }}">
-                <a href="{{ route('panel.lapor') }}"> <span class="nav-label"> <i class="fa fa-newspaper-o" ></i> Laporan Hoax</span> </a>
-            </li>
-            <li class="{{ Request::is('panel/berita*') ? 'active' : '' }}">
-                <a href="{{ route('panel.berita') }}"> <span class="nav-label"> <i class="fa fa-newspaper-o" ></i> Verifikasi Hoax </span></a>
-            </li> -->
-
-            @role('admin')
-            
-            @endrole
-            @role('admin|moderator')
-            <!-- <li class="{{ Request::is('panel/post*') ? 'active' : '' }}">
-                <a href="#"><span class="nav-label">Posts</span><span class="fa arrow"></span> </a>
-                
-                <ul class="nav nav-second-level">
-                    <li class="{{ Request::is('panel/agenda*') ? 'active' : '' }}">
-                        <a href="{{ route('panel.post') }}"> <span class="nav-label">Produk Hukum</span> </a>
-                    </li>
-                    <li class="{{ Request::is('panel/agenda*') ? 'active' : '' }}">
-                        <a href="{{ route('panel.berita') }}"> <span class="nav-label">Berita </span></a>
-                    </li>
-                    <li class="{{ Request::is('panel/agenda*') ? 'active' : '' }}">
-                        <a href="{{ route('panel.agenda') }}"> <span class="nav-label">Profil </span></a>
-                    </li>
-                </ul>
-        
-            </li> -->
-            
             @endrole
         </ul>
     </div>

@@ -13,10 +13,8 @@
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="/assets_public3/css/shards.css?v=3.0.0">
-  <link rel="stylesheet" href="/assets_public3/css/shards-extras.css?version=3.0.0">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css">
+  <link rel="stylesheet" href="css/shards.css?v=3.0.0">
+  <link rel="stylesheet" href="css/shards-extras.css?version=3.0.0">
 
   <!-- PETA -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
@@ -47,7 +45,7 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark  px-0 ">
       <a class="navbar-brand mr-5" href="#">
-        <img src="/assets_public3/images/bansos/shards-logo-green.svg" class="mr-2" alt="Shards - Agency Landing Page">
+        <img src="images/bansos/shards-logo-green.svg" class="mr-2" alt="Shards - Agency Landing Page">
 
       </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
@@ -118,7 +116,7 @@
         <div class="card-group">
           <div class="col-sm-6 col-md-6 col-lg-3">
             <div class=" mt-4">
-              <img class="card-img" src="/assets_public3/images/common/card-1.jpg" alt="">
+              <img class="card-img" src="images/common/card-1.jpg" alt="">
               <div class="card-body">
                 <h6>KETAHUI SYARAT-SYARAT MENDAPATKAN BANTUAN</h6>
               </div>
@@ -126,7 +124,7 @@
           </div>
           <div class="col-sm-6 col-md-6 col-lg-3">
             <div class="mt-4 ">
-              <img class="card-img" src="/assets_public3/images/common/card-3.jpg" alt="Card image cap">
+              <img class="card-img" src="images/common/card-3.jpg" alt="Card image cap">
               <div class="card-body">
                 <h6 class="">MENDAPATKAN BANTUAN BAGI PERANTAU DI SULSEL</h6>
               </div>
@@ -135,7 +133,7 @@
 
           <div class="col-sm-6 col-md-6 col-lg-3">
             <div class="mt-4 ">
-              <img class="card-img" src="/assets_public3/images/common/card-2.jpg" alt="Card image cap">
+              <img class="card-img" src="images/common/card-2.jpg" alt="Card image cap">
               <div class="card-body">
                 <h6 class="">BANTUAN UNTUK WARGA SULSEL YANG MERANTAU</h6>
               </div>
@@ -143,7 +141,7 @@
           </div>
           <div class="col-sm-6 col-md-6 col-lg-3">
             <div class="mt-4 ">
-              <img class="card-img" src="/assets_public3/images/common/card-2.jpg" alt="Card image cap">
+              <img class="card-img" src="images/common/card-2.jpg" alt="Card image cap">
               <div class="card-body">
                 <h6 class="">UPDATE DATA DAN SEBARAN PETA COVID-19</h6>
               </div>
@@ -194,7 +192,6 @@
             </div>
           </div>
         </div>
-        <h6 style="text-align: right;" class="text-right mb-5 mt-2">Berita Covid-19 Lainnya</h6>
       </div>
     </div>
   </div>
@@ -238,19 +235,40 @@
         </div>
 
         <div class="container">
-          <table id="datatable-slide" class="display" style="width:100%">
+          <table id="example" class="display" style="width:100%">
             <thead>
-                <tr>
-                    <th class="text-center" width="1%">No</th>
-                    <th class="text-center">ID</th>
-                    <th class="text-center">NIK</th>
-                    <th class="text-center">Nama</th>
-                    <th class="text-center">Kab / Kota</th>
-                    <th class="text-center">Alamat</th>
-                </tr>
+              <tr>
+                <th>No</th>
+                <th>ID</th>
+                <th>NIK</th>
+                <th>Nama</th>
+                <th>Kab/Kota</th>
+                <th>Alamat</th>
+              </tr>
             </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>0012102</td>
+                <td>7371130102950005</td>
+                <td>Yogi Pratama</td>
+                <td>Makassar</td>
+                <td>Jl. Perintis Kemerdekaan</td>
+              </tr>
+              <tr>
+                <td>1</td>
+                <td>0012102</td>
+                <td>7371130102950005</td>
+                <td>Yogi Pratama</td>
+                <td>Makassar</td>
+                <td>Jl. Perintis Kemerdekaan</td>
+              </tr>
+
+            </tbody>
+
           </table>
         </div>
+
       </div>
     </div>
   </div>
@@ -262,25 +280,6 @@
 
       <div class="col-sm-12 col-md-12 col-lg-12 p-5 mb-4 card">
         <div id="mapid"></div>
-      </div>
-    </div>
-  </div>
-
-  <div style="display: none;">
-    @php $no = 0 @endphp
-    @foreach($data2 as $xdata2)
-    @php $no++ @endphp
-    <input type="text" id="a{{ $no }}" value="{{ $xdata2->nama_kab }}">
-    <input type="text" id="b{{ $no }}" value="{{ $xdata2->jumlah }}">
-    @endforeach
-  </div>
-  <div class="testimonials section py-4">
-    <div class="container">
-      <h5 class="section-title text-center m-5">Grafik</h5>
-      <div class="contact-form col-sm-12 col-md-12 col-lg-12 p-5 mb-4 card">
-        <div class="container">
-            <canvas id="canvas"></canvas>
-        </div>
       </div>
     </div>
   </div>
@@ -365,11 +364,21 @@
       accessToken: 'pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw'
     }).addTo(mymap);
   </script>
-  <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+
+
+
+
+
+
+  <script>
+    $(document).ready(function () {
+      $('#example').DataTable();
+    });
+  </script>
+
   <script>
     $(document).ready(function () {
       $('.select2').select2();
-    //   $('#totKab').DataTable({});
 
       var kab = $('#kab').val();
       var kec = '00';
@@ -413,7 +422,7 @@
         url = "/panel/data/bansos/index/json/" + kab + "/" + kec + "/" + kel;
         table2.ajax.url(url)
         table2.ajax.reload();
-        $("#kel").load('/kelurahan/' + kab + '/'+ kec);
+        $("#kel").load('/kelurahan/' + kec);
       });
 
       $("#kel").change(function () {
@@ -425,204 +434,8 @@
         table2.ajax.reload();
       });
 
-      $("#kabs").change(function () {
-        var kabs = $('#kabs').val();
-        $("#kecs").load('/kecamatan/' + kabs);
-      });
-
-      $("#kecs").change(function () {
-        var kabs = $('#kabs').val();
-        var kecs = $('#kecs').val();
-        $("#kels").load('/kelurahan/' + kabs + '/'+ kecs);
-      });
-
     });
   </script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
-    <script src="https://www.chartjs.org/samples/latest/utils.js"></script>
-
-    <script>
-            var a1   = $('#a1').val();
-            var a2   = $('#a2').val();
-            var a3   = $('#a3').val();
-            var a4   = $('#a4').val();
-            var a5   = $('#a5').val();
-            var a6   = $('#a6').val();
-            var a7   = $('#a7').val();
-            var a8   = $('#a8').val();
-            var a9   = $('#a9').val();
-            var a10  = $('#a10').val();
-            var a11  = $('#a11').val();
-            var a12  = $('#a12').val();
-            var a13  = $('#a13').val();
-            var a14  = $('#a14').val();
-            var a15  = $('#a15').val();
-            var a16  = $('#a16').val();
-            var a17  = $('#a17').val();
-            var a18  = $('#a18').val();
-            var a19  = $('#a19').val();
-            var a20  = $('#a20').val();
-            var a21  = $('#a21').val();
-            var a22  = $('#a22').val();
-            var a23  = $('#a23').val();
-            var a24  = $('#a24').val();
-
-            var b1   =$('#b1').val();
-            var b2   =$('#b2').val();
-            var b3   =$('#b3').val();
-            var b4   =$('#b4').val();
-            var b5   =$('#b5').val();
-            var b6   =$('#b6').val();
-            var b7   =$('#b7').val();
-            var b8   =$('#b8').val();
-            var b9   =$('#b9').val();
-            var b10  = $('#b10').val();
-            var b11  = $('#b11').val();
-            var b12  = $('#b12').val();
-            var b13  = $('#b13').val();
-            var b14  = $('#b14').val();
-            var b15  = $('#b15').val();
-            var b16  = $('#b16').val();
-            var b17  = $('#b17').val();
-            var b18  = $('#b18').val();
-            var b19  = $('#b19').val();
-            var b20  = $('#b20').val();
-            var b21  = $('#b21').val();
-            var b22  = $('#b22').val();
-            var b23  = $('#b23').val();
-            var b24  = $('#b24').val();
-
-        
-		var MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-		var color = Chart.helpers.color;
-		var horizontalBarChartData = {
-			labels: [ a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, a22, a23, a24,],
-			datasets: [{
-				label: 'Jumlah Penerima',
-				backgroundColor: color(window.chartColors.blue).alpha(0.5).rgbString(),
-				borderColor: window.chartColors.blue,
-				borderWidth: 1,
-				data: [
-					b1,
-					b2,
-					b3,
-                    b4,
-                    b5,
-                    b6,
-                    b7,
-                    b8,
-                    b9,
-                    b10,
-                    b11,
-                    b12,
-                    b13,
-                    b14,
-                    b15,
-                    b16,
-                    b17,
-                    b18,
-                    b19,
-                    b20,
-                    b21,
-                    b22,
-                    b23,
-                    b24
-				]
-			}]
-
-		};
-
-		window.onload = function() {
-			var ctx = document.getElementById('canvas').getContext('2d');
-			window.myHorizontalBar = new Chart(ctx, {
-				type: 'horizontalBar',
-				data: horizontalBarChartData,
-				options: {
-					// Elements options apply to all of the options unless overridden in a dataset
-					// In this case, we are setting the border of each horizontal bar to be 2px wide
-					elements: {
-						rectangle: {
-							borderWidth: 2,
-						}
-					},
-					responsive: true,
-					legend: {
-						position: 'right',
-					},
-					title: {
-						display: true,
-						text: 'Data'
-					}
-				}
-			});
-
-		};
-
-		document.getElementById('randomizeData').addEventListener('click', function() {
-			var zero = Math.random() < 0.2 ? true : false;
-			horizontalBarChartData.datasets.forEach(function(dataset) {
-				dataset.data = dataset.data.map(function() {
-					return zero ? 0.0 : randomScalingFactor();
-				});
-
-			});
-			window.myHorizontalBar.update();
-		});
-
-		var colorNames = Object.keys(window.chartColors);
-
-		document.getElementById('addDataset').addEventListener('click', function() {
-			var colorName = colorNames[horizontalBarChartData.datasets.length % colorNames.length];
-			var dsColor = window.chartColors[colorName];
-			var newDataset = {
-				label: 'Dataset ' + (horizontalBarChartData.datasets.length + 1),
-				backgroundColor: color(dsColor).alpha(0.5).rgbString(),
-				borderColor: dsColor,
-				data: []
-			};
-
-			for (var index = 0; index < horizontalBarChartData.labels.length; ++index) {
-				newDataset.data.push(randomScalingFactor());
-			}
-
-			horizontalBarChartData.datasets.push(newDataset);
-			window.myHorizontalBar.update();
-		});
-
-		document.getElementById('addData').addEventListener('click', function() {
-			if (horizontalBarChartData.datasets.length > 0) {
-				var month = MONTHS[horizontalBarChartData.labels.length % MONTHS.length];
-				horizontalBarChartData.labels.push(month);
-
-				for (var index = 0; index < horizontalBarChartData.datasets.length; ++index) {
-					horizontalBarChartData.datasets[index].data.push(randomScalingFactor());
-				}
-
-				window.myHorizontalBar.update();
-			}
-		});
-
-		document.getElementById('removeDataset').addEventListener('click', function() {
-			horizontalBarChartData.datasets.pop();
-			window.myHorizontalBar.update();
-		});
-
-		document.getElementById('removeData').addEventListener('click', function() {
-			horizontalBarChartData.labels.splice(-1, 1); // remove the label first
-
-			horizontalBarChartData.datasets.forEach(function(dataset) {
-				dataset.data.pop();
-			});
-
-			window.myHorizontalBar.update();
-		});
-
-    
-    </script>
 
 
 </body>

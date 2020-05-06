@@ -41,11 +41,6 @@
                 <div class="panel-body">
                     <form method="POST" id="FormInsert" action="/panel/konfigurasi/masters/users/insert" class="form-horizontal">
                         @csrf
-                        <div class="form-group"><label class="col-sm-2 control-label">Unker</label>
-                            <div class="col-sm-10">
-                                <select class="form-control select2" name="unker" id="unker" style="width: 100%;"></select>
-                            </div>
-                        </div>
                         <div class="form-group"><label class="col-sm-2 control-label">Nama</label>
                             <div class="col-sm-10">
                                 <input type="text" name="nama" class="form-control"  required>
@@ -66,8 +61,8 @@
                             <div class="col-sm-10">
                                 <select class="form-control select2" name="role" style="width: 100%;">
                                 <option value="1"> Super Administrator </option>
-                                <option value="2"> Admin OPD</option>
-                                <option value="3"> Verifikator</option>
+                                <option value="2"> Admin</option>
+                                <option value="3"> Admin Aduan</option>
                                 </select>
                             </div>
                         </div>
@@ -86,15 +81,6 @@
                             <div class="form-group" style="display: none"><label class="col-sm-2 control-label">ID</label>
                                 <div class="col-sm-10">
                                     <input type="text" id="idEdit" name="id" class="form-control" required>
-                                </div>
-                            </div>
-                            <div class="form-group"><label class="col-sm-2 control-label">Unker</label>
-                                <div class="col-sm-10">
-                                    <select class="form-control select2" name="unker" id="unkerEdit" style="width: 100%;">
-                                    @foreach($data as $xdata)
-                                    <option value="{{ $xdata->id_unker }}">{{ $xdata->unker }}</option>
-                                    @endforeach
-                                </select>
                                 </div>
                             </div>
                             <div class="form-group"><label class="col-sm-2 control-label">Nama</label>
@@ -116,8 +102,8 @@
                                 <div class="col-sm-10">
                                     <select class="form-control select2" name="role" id="roleEdit" style="width: 100%;">
                                     <option value="1"> Super Administrator </option>
-                                    <option value="2"> Admin OPD</option>
-                                    <option value="3"> Verifikator</option>
+                                    <option value="2"> Admin </option>
+                                    <option value="3"> Admin Aduan</option>
                                     </select>
                                 </div>
                             </div>
@@ -138,7 +124,6 @@
                             <tr>
                                 <th class="text-center" width="1%">#</th>
                                 <th class="text-center">Nama</th>
-                                <th class="text-center">OPD</th>
                                 <th class="text-center" width="10%">Username</th>
                                 <th class="text-center" width="10%">Role</th>
                                 <th class="text-center" width="10%">Last Login</th>
@@ -183,7 +168,6 @@
             "columns": [
                 { "data": "DT_RowIndex", "orderable": false, "searchable": false },
                 { "data": "name" },
-                { "data": "opd" },
                 { "data": "username" },
                 { "data": "display_name", "searchable": false },
                 { "data": "created_at" },

@@ -13,6 +13,18 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::get('index', 'ApiRouteController@index');
+
+Route::group(['prefix'=>'data'], function () {
+    Route::get('kabkot', 'ApiRouteController@dataKabkot');
+    Route::get('kecamatan/{name}', 'ApiRouteController@dataKecamatan');
+    Route::get('kelurahan/{name}', 'ApiRouteController@dataKelurahan');
+    Route::get('statuskedudukan', 'ApiRouteController@dataStatusKedudukan');
+    Route::get('jenislaporan', 'ApiRouteController@dataJenisLaporan');
+    Route::get('kategori', 'ApiRouteController@dataKategori');
+    Route::get('jenis', 'ApiRouteController@dataJenis');
+});
+
+Route::group(['prefix'=>'action'], function () {
+    Route::post('insert', 'ApiRouteController@actionInsert');
 });

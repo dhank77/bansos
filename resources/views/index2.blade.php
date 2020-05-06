@@ -198,12 +198,12 @@
   <!-- / Testimonials Section -->
 
   <!-- Subscribe Section -->
-  <div class=" bg-dark py-4">
+  <!-- <div class=" bg-dark py-4">
     <h1 class="text-center text-white mt-5">Dinas Sosial Provinsi Sulawesi Selatan</h1>
     <p class="text-muted col-md-6 text-center mb-5 mx-auto">Mari bersama-sama menghadapi dampak sosial ekonomi akibat
       pandemi Covid-19.</p>
 
-  </div>
+  </div> -->
   <!-- / Subscribe Section -->
 
   <!-- Contact Section -->

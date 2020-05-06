@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     <!-- Page title -->
-    <title>Login | Satya Lancana</title>
+    <title>Login | Bantuan Covid19 Pemerintah Provinsi Sulawesi Selatan.</title>
 
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!--<link rel="shortcut icon" type="image/ico" href="favicon.ico" />-->
@@ -36,7 +36,7 @@
             <div class="rect4"></div>
             <div class="rect5"></div>
         </div>
-        &copy;2020 Bantuan Sosial
+        &copy;Bantuan Covid19 Pemerintah Provinsi Sulawesi Selatan.
     </div>
 </div>
 <!--[if lt IE 7]>
@@ -83,7 +83,7 @@
     </div>
     <div class="row">
         <div class="col-md-12 text-center">
-            &copy;2020 Bantuan Sosial
+            &copy;Bantuan Covid19 Pemerintah Provinsi Sulawesi Selatan.
         </div>
     </div>
 </div>

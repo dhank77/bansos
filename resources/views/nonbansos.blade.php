@@ -39,13 +39,10 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
           <ul class="navbar-nav ml-auto">
-            <li class="nav-item active">
+            <li class="nav-item">
               <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
             </li>
-            <!-- <li class="nav-item">
-              <a class="nav-link" href="#">Persyaratan</a>
-            </li> -->
-            <li class="nav-item">
+            <li class="nav-item active">
               <a class="nav-link" href="/non-bansos">Non Bansos </a>
             </li>
             <li class="nav-item mr-5">
@@ -159,63 +156,13 @@
   <!-- / Testimonials Section -->
 
   <!-- Subscribe Section -->
-  <div class=" bg-dark py-4">
+  <!-- <div class=" bg-dark py-4">
     <h1 class="text-center text-white mt-5">Dinas Sosial Provinsi Sulawesi Selatan</h1>
     <p class="text-muted col-md-6 text-center mb-5 mx-auto">Mari bersama-sama menghadapi dampak sosial ekonomi akibat
       pandemi Covid-19.</p>
 
-  </div>
+  </div> -->
   <!-- / Subscribe Section -->
-
-  <!-- Contact Section -->
-  <div class="contact section-invert py-4">
-    <h3 class="section-title text-center m-5">Form Permintaan Bantuan</h3>
-    <div class="container py-4">
-      <div class="row justify-content-md-center px-4">
-        <div class="contact-form col-sm-12 col-md-10 col-lg-7 p-4 mb-4 card">
-          <form>
-            <div class="row">
-              <div class="col-md-6 col-sm-12">
-                <div class="form-group">
-                  <label for="contactFormFullName">Nama Lengkap</label>
-                  <input type="email" class="form-control" id="contactFormFullName" placeholder="Enter your full name">
-                </div>
-              </div>
-              <div class="col-md-6 col-sm-12">
-                <div class="form-group">
-                  <label for="contactFormFullName">NIK</label>
-                  <input type="email" class="form-control" id="contactFormFullName" placeholder="Enter your full name">
-                </div>
-              </div>
-              <div class="col-md-6 col-sm-12">
-                <div class="form-group">
-                  <label for="contactFormFullName">Alamat</label>
-                  <input type="email" class="form-control" id="contactFormFullName" placeholder="Enter your full name">
-                </div>
-              </div>
-              <div class="col-md-6 col-sm-12">
-                <div class="form-group">
-                  <label for="contactFormEmail">Kab/Kota</label>
-                  <input type="email" class="form-control" id="contactFormEmail" placeholder="Enter your email address">
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col">
-                <div class="form-group">
-                  <label for="exampleInputEmail1">Pesan</label>
-                  <textarea id="exampleInputEmail1" class="form-control mb-4" rows="5"
-                    placeholder="Enter your message..." name="message"></textarea>
-                </div>
-              </div>
-            </div>
-            <input class="btn btn-success btn-pill d-flex ml-auto mr-auto" type="submit" value="Kirim">
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- / Contact Section -->
 
   <!-- Contact Section -->
   <!-- <div class="contact section-invert py-4">
@@ -271,266 +218,20 @@
 
   <!-- jQuery-2.2.4 js -->
   <script src="/assets_public/js/jquery/jquery-2.2.4.min.js"></script>
-    <!-- Popper js -->
-    <script src="/assets_public/js/bootstrap/popper.min.js"></script>
-    <!-- Bootstrap-4 js -->
-    <script src="/assets_public/js/bootstrap/bootstrap.min.js"></script>
-    <!-- All Plugins js -->
-    <script src="/assets_public/js/others/plugins.js"></script>
-    <!-- Active JS -->
-    <script src="/assets_public/js/active.js"></script>
-    <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
-
-  <script>
-    $(document).ready(function () {
-      $('.select2').select2();
-    //   $("#cv").load('/canvas');
-
-      var kab = $('#kab').val();
-      var kec = '00';
-      var kec = '00';
-      var table2 = $('#datatable-slide').DataTable({
-        "pageLength": 10,
-        "processing": true,
-        "language": {
-          "processing": 'Memuat...'
-        },
-        "serverSide": true,
-        "scrollX": true,
-        "ajax": "/panel/data/bansos/index/json/" + kab + "/" + kec + "/" + kel,
-        "columns": [
-          { "data": "DT_RowIndex", "orderable": false, "searchable": false },
-          { "data": "IDBDT" },
-          { "data": "NIK" },
-          { "data": "NAMA" },
-          { "data": "KABUPATEN" },
-          { "data": "ALAMAT" },
-        ],
-        "columnDefs": [
-          { "className": "text-center", "targets": [0, 4] }
-        ],
-      });
-
-      $("#kab").change(function () {
-        var kab = $('#kab').val();
-        var kec = '00';
-        var kel = '00';
-        url = "/panel/data/bansos/index/json/" + kab + "/" + kec + "/" + kel;
-        table2.ajax.url(url)
-        table2.ajax.reload();
-        $("#kec").load('/kecamatan/' + kab);
-      });
-
-      $("#kec").change(function () {
-        var kab = $('#kab').val();
-        var kec = $('#kec').val();
-        var kel = '00';
-        url = "/panel/data/bansos/index/json/" + kab + "/" + kec + "/" + kel;
-        table2.ajax.url(url)
-        table2.ajax.reload();
-        $("#kel").load('/kelurahan/' + kab + '/'+ kec);
-      });
-
-      $("#kel").change(function () {
-        var kab = $('#kab').val();
-        var kec = $('#kec').val();
-        var kel = $('#kel').val();
-        url = "/panel/data/bansos/index/json/" + kab + "/" + kec + "/" + kel;
-        table2.ajax.url(url)
-        table2.ajax.reload();
-      });
-
-    });
-  </script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
-    <script src="https://www.chartjs.org/samples/latest/utils.js"></script>
-
-    <script>
-        $.getJSON('chart/data', function(data) {
-            var a1   = data[0].nama_kab;
-            var a2   = data[1].nama_kab;
-            var a3   = data[2].nama_kab;
-            var a4   = data[3].nama_kab;
-            var a5   = data[4].nama_kab;
-            var a6   = data[5].nama_kab;
-            var a7   = data[6].nama_kab;
-            var a8   = data[7].nama_kab;
-            var a9   = data[8].nama_kab;
-            var a10  = data[9].nama_kab;
-            var a11  = data[10].nama_kab;
-            var a12  = data[11].nama_kab;
-            var a13  = data[12].nama_kab;
-            var a14  = data[13].nama_kab;
-            var a15  = data[14].nama_kab;
-            var a16  = data[15].nama_kab;
-            var a17  = data[16].nama_kab;
-            var a18  = data[17].nama_kab;
-            var a19  = data[18].nama_kab;
-            var a20  = data[19].nama_kab;
-            var a21  = data[20].nama_kab;
-            var a22  = data[21].nama_kab;
-            var a23  = data[22].nama_kab;
-            var a24  = data[23].nama_kab;
-
-            var b1   = data[0].jumlah;
-            var b2   = data[1].jumlah;
-            var b3   = data[2].jumlah;
-            var b4   = data[3].jumlah;
-            var b5   = data[4].jumlah;
-            var b6   = data[5].jumlah;
-            var b7   = data[6].jumlah;
-            var b8   = data[7].jumlah;
-            var b9   = data[8].jumlah;
-            var b10  = data[9].jumlah;
-            var b11  = data[10].jumlah;
-            var b12  = data[11].jumlah;
-            var b13  = data[12].jumlah;
-            var b14  = data[13].jumlah;
-            var b15  = data[14].jumlah;
-            var b16  = data[15].jumlah;
-            var b17  = data[16].jumlah;
-            var b18  = data[17].jumlah;
-            var b19  = data[18].jumlah;
-            var b20  = data[19].jumlah;
-            var b21  = data[20].jumlah;
-            var b22  = data[21].jumlah;
-            var b23  = data[22].jumlah;
-            var b24  = data[23].jumlah;
-
-        
-		var MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-		var color = Chart.helpers.color;
-		var horizontalBarChartData = {
-			labels: [ a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, a22, a23, a24,],
-			datasets: [{
-				label: 'Jumlah Penerima',
-				backgroundColor: color(window.chartColors.blue).alpha(0.5).rgbString(),
-				borderColor: window.chartColors.blue,
-				borderWidth: 1,
-				data: [
-					b1,
-					b2,
-					b3,
-                    b4,
-                    b5,
-                    b6,
-                    b7,
-                    b8,
-                    b9,
-                    b10,
-                    b11,
-                    b12,
-                    b13,
-                    b14,
-                    b15,
-                    b16,
-                    b17,
-                    b18,
-                    b19,
-                    b20,
-                    b21,
-                    b22,
-                    b23,
-                    b24
-				]
-			}]
-
-		};
-
-		window.onload = function() {
-			var ctx = document.getElementById('canvas').getContext('2d');
-			window.myHorizontalBar = new Chart(ctx, {
-				type: 'horizontalBar',
-				data: horizontalBarChartData,
-				options: {
-					// Elements options apply to all of the options unless overridden in a dataset
-					// In this case, we are setting the border of each horizontal bar to be 2px wide
-					elements: {
-						rectangle: {
-							borderWidth: 2,
-						}
-					},
-					responsive: true,
-					legend: {
-						position: 'right',
-					},
-					title: {
-						display: true,
-						text: 'Grafik Penerima Bantuan Sosial'
-					}
-				}
-			});
-
-		};
-
-		document.getElementById('randomizeData').addEventListener('click', function() {
-			var zero = Math.random() < 0.2 ? true : false;
-			horizontalBarChartData.datasets.forEach(function(dataset) {
-				dataset.data = dataset.data.map(function() {
-					return zero ? 0.0 : randomScalingFactor();
-				});
-
-			});
-			window.myHorizontalBar.update();
-		});
-
-		var colorNames = Object.keys(window.chartColors);
-
-		document.getElementById('addDataset').addEventListener('click', function() {
-			var colorName = colorNames[horizontalBarChartData.datasets.length % colorNames.length];
-			var dsColor = window.chartColors[colorName];
-			var newDataset = {
-				label: 'Dataset ' + (horizontalBarChartData.datasets.length + 1),
-				backgroundColor: color(dsColor).alpha(0.5).rgbString(),
-				borderColor: dsColor,
-				data: []
-			};
-
-			for (var index = 0; index < horizontalBarChartData.labels.length; ++index) {
-				newDataset.data.push(randomScalingFactor());
-			}
-
-			horizontalBarChartData.datasets.push(newDataset);
-			window.myHorizontalBar.update();
-		});
-
-		document.getElementById('addData').addEventListener('click', function() {
-			if (horizontalBarChartData.datasets.length > 0) {
-				var month = MONTHS[horizontalBarChartData.labels.length % MONTHS.length];
-				horizontalBarChartData.labels.push(month);
-
-				for (var index = 0; index < horizontalBarChartData.datasets.length; ++index) {
-					horizontalBarChartData.datasets[index].data.push(randomScalingFactor());
-				}
-
-				window.myHorizontalBar.update();
-			}
-		});
-
-		document.getElementById('removeDataset').addEventListener('click', function() {
-			horizontalBarChartData.datasets.pop();
-			window.myHorizontalBar.update();
-		});
-
-		document.getElementById('removeData').addEventListener('click', function() {
-			horizontalBarChartData.labels.splice(-1, 1); // remove the label first
-
-			horizontalBarChartData.datasets.forEach(function(dataset) {
-				dataset.data.pop();
-			});
-
-			window.myHorizontalBar.update();
-		});
-
-    });
-    </script>
-
-
+  <!-- Popper js -->
+  <script src="/assets_public/js/bootstrap/popper.min.js"></script>
+  <!-- Bootstrap-4 js -->
+  <script src="/assets_public/js/bootstrap/bootstrap.min.js"></script>
+  <!-- All Plugins js -->
+  <script src="/assets_public/js/others/plugins.js"></script>
+  <!-- Active JS -->
+<script src="/assets_public/js/active.js"></script>
+  <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+  <script src="https://www.chartjs.org/samples/latest/utils.js"></script>
 </body>
-
 </html>
