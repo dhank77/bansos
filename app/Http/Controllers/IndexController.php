@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
 use Auth;
 use GuzzleHttp\Psr7;
+use Yajra\DataTables\Facades\DataTables;
 
 class IndexController extends Controller
 {
@@ -37,8 +38,6 @@ class IndexController extends Controller
                 array_push($data_maps, $decode);
             }
             $maps = json_encode($data_maps);
-            // dd($maps);
-            // return view('index', ['data' => $data, 'data2' => $data2]);
             return view('index', compact('data', 'data2', 'maps'));
         } else if (Auth::check()) {
             return redirect('/panel');
@@ -50,5 +49,52 @@ class IndexController extends Controller
         \Artisan::call('route:clear');
         \Artisan::call('view:clear');
         \Artisan::call('config:cache');
+    }
+
+
+    public function donasi()
+    {
+        $data = DB::table('ms_kab')
+            ->select('kd_kab', 'nama_kab')
+            ->get();
+        return view('donasi', compact('data'));
+    }
+
+    public function donasiJSON()
+    {
+        function BansosJSON()
+        {
+            $data = DB::table('t_pemberi_bantuan')
+                ->select('id', 'pemberi_bantuan', 'jenis_bantuan', 'jumlah', 'total', 'tanggal_masuk', 'keterangan')
+                ->orderBy('id', 'asc');
+
+            return DataTables::of($data)
+                ->addIndexColumn()
+                ->editColumn('no', function ($data) {
+                    return '    <p>' . $data->IDBDT . '</p>';
+                })
+                ->editColumn('nama', function ($data) {
+                    return '    <p>' . $data->NAMA . '</p>';
+                })
+                ->editColumn('KABUPATEN', function ($data) {
+                    return '    <p>' . $data->KABUPATEN . '</p>';
+                })
+                ->editColumn('ALAMAT', function ($data) {
+                    return '    <p>' . $data->ALAMAT . '</p>';
+                })
+                ->editColumn('JUMLAH_ART', function ($data) {
+                    return '    <p>' . $data->JUMLAH_ART . '</p>';
+                })
+                ->editColumn('PERSENTIL', function ($data) {
+                    return '    <p>' . $data->PERSENTIL . '</p>';
+                })
+                ->editColumn('aksi', function ($data) {
+                    return '
+                    <button class="btn btn-sm btn-warning" data-toggle="modal" data-target="#editModal" onclick="EditData(&quot;' . $data->ID . '&quot;,&quot;' . $data->NAMA . '&quot;)"><i class="fa fa-pencil"></i></button> | 
+                    <button class="btn btn-sm btn-danger" onclick="HapusData(&quot;' . $data->ID . '&quot;)"><i class="fa fa-trash"></i></button>';
+                })
+                ->escapeColumns([])
+                ->make(true);
+        }
     }
 }

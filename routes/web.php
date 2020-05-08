@@ -1,5 +1,9 @@
 <?php
 Route::get('/', 'IndexController@index')->name('index');
+Route::get('/mapsJSON', 'IndexController@mapsJSON');
+Route::get('/getChart', 'IndexController@getChart');
+Route::get('/donasi', 'IndexController@donasi')->name('donasi');
+Route::get('/donasiJSON', 'IndexController@donasiJSON');
 Route::get('/non-bansos', 'Panel\IndexController@IndexNonBansos');
 
 Route::get('/panel/data/bansos/index/json/{kab}/{kec}/{kel}', 'Panel\IndexController@BansosIndexJSON');

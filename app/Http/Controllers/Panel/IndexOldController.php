@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\View;
 use GuzzleHttp\Psr7;
 use PDF;
 
-class IndexController extends Controller {
+class IndexOldController extends Controller {
     function index() {
         DB::table('users')
             ->where('id', '=', Auth::user()->id)
