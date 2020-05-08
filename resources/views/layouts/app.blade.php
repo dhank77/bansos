@@ -52,17 +52,17 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item active">
+                    <li class="nav-item{{ request()->is('/') ? " active" : "" }}">
                         <a class="nav-link" href="{{ route('index') }}">Home <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Transparansi Data</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item{{ request()->is('donasi') ? " active" : "" }}">
                         <a class="nav-link" href="{{ route('donasi') }}">Donasi </a>
                     </li>
                     <li class="nav-item mr-5">
-                        <a class="nav-link" href="#">Covid-19</a>
+                        <a class="nav-link" href="https://covid19.sulselprov.go.id/" target="_blank">Covid-19</a>
                     </li>
 
                 </ul>
