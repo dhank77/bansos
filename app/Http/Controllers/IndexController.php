@@ -21,24 +21,7 @@ class IndexController extends Controller
             $data = DB::table('ms_kab')
                 ->select('kd_kab', 'nama_kab')
                 ->get();
-            $data2 = DB::table('ms_kab')
-                ->selectRaw("ms_kab.nama_kab,
-                    (SELECT COUNT(ID) FROM t_penerima WHERE KD_KAB = ms_kab.kd_kab) as jumlah
-                    ")
-                ->orderby('jumlah', 'desc')
-                ->get();
-            $json = file_get_contents(url('sulsel.json'));
-            $decodes = json_decode($json, true);
-            $data_maps = [];
-            foreach ($decodes['features'] as &$decode) {
-                $jumlah = Penerima::where('KD_KAB', $decode['properties']['ID_0'])->count();
-                if ($jumlah) {
-                    $decode['properties']['jumlah'] = $jumlah;
-                }
-                array_push($data_maps, $decode);
-            }
-            $maps = json_encode($data_maps);
-            return view('index', compact('data', 'data2', 'maps'));
+            return view('index', compact('data'));
         } else if (Auth::check()) {
             return redirect('/panel');
         }
@@ -49,6 +32,44 @@ class IndexController extends Controller
         \Artisan::call('route:clear');
         \Artisan::call('view:clear');
         \Artisan::call('config:cache');
+    }
+
+    public function mapsJSON()
+    {
+        ini_set('max_execution_time', '9999');
+        $json = file_get_contents(url('sulsel.json'));
+        $decodes = json_decode($json, true);
+        $data_maps = [];
+        foreach ($decodes['features'] as &$decode) {
+            $jumlah = Penerima::where('KD_KAB', $decode['properties']['ID_0'])->count();
+            if ($jumlah) {
+                $decode['properties']['jumlah'] = $jumlah;
+            }
+            array_push($data_maps, $decode);
+        }
+        return json_encode($data_maps);
+    }
+
+    public function getChart()
+    {
+        ini_set('max_execution_time', '9999');
+        $data = DB::table('ms_kab')
+            ->selectRaw("ms_kab.nama_kab,
+                (SELECT COUNT(ID) FROM t_penerima WHERE KD_KAB = ms_kab.kd_kab) as jumlah
+                ")
+            ->orderby('jumlah', 'desc')
+            ->get();
+        $chartKab = [];
+        $chartData = [];
+        foreach($data as $d){
+            array_push($chartData, $d->jumlah);
+            array_push($chartKab, $d->nama_kab);
+        }
+        $chart = [
+            $chartKab,
+            $chartData,
+        ];
+        return $chart;
     }
 
 

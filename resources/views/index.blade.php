@@ -139,69 +139,118 @@
 <div class="blog section section-invert py-4">
     <div class="container">
         <h6 class="section-title underline--left mb-5 mt-5">Monitoring Distribusi Bantuan Sosial</h6>
-
         <div class="col-sm-12 col-md-12 col-lg-12 p-5 mb-4 card">
-            <div id="mapid"></div>
+            <div id="loader" style="display: none; text-align:center;">
+                <div class="spinner-border text-primary" style="width: 10rem; height: 10rem; text-align:center;" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+            </div>
+            <div id="mapid" style="display: none"> </div>
+            <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
             <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
             <script>
-                var map = L.map('mapid').setView([-4.516667, 119.683611], 7);
-                L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-                    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>'
-                    , maxZoom: 18
-                    , id: 'mapbox/streets-v11'
-                    , tileSize: 512
-                    , zoomOffset: -1
-                    , accessToken: 'pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw'
-                }).addTo(map);
-
-                var maps = '{!! $maps !!}';
-                var data_maps = JSON.parse(maps);
-                data_maps.forEach(data_maps_foreach)
-
-                function get_color(jumlah) {
-                    let color = "";
-                    if (jumlah < 10000) {
-                        color = "#e6f5fe"
+                var localCache = {
+                    data: {}
+                    , remove: function(url) {
+                        delete localCache.data[url];
                     }
-                    if (jumlah > 10000 && jumlah < 25000) {
-                        color = "#b5e2fd"
+                    , exist: function(url) {
+                        return localCache.data.hasOwnProperty(url) && localCache.data[url] !== null;
                     }
-                    if (jumlah > 25000 && jumlah < 40000) {
-                        color = "#84cffd"
+                    , get: function(url) {
+                        console.log('Getting in cache for url' + url);
+                        return localCache.data[url];
                     }
-                    if (jumlah > 40000 && jumlah < 50000) {
-                        color = "#53bcfc"
+                    , set: function(url, cachedData, callback) {
+                        localCache.remove(url);
+                        localCache.data[url] = cachedData;
+                        if ($.isFunction(callback)) callback(cachedData);
                     }
-                    if (jumlah > 50000) {
-                        color = "#0aa0fb"
-                    }
-                    return color;
-                }
-
-                function data_maps_foreach(item) {
-                    L.geoJson(item, {
-                        style: function(feature) {
-                            return {
-                                fillOpacity: 0.8
-                                , weight: 1
-                                , opacity: 1
-                                , color: "black"
-                                , fillColor: get_color(feature.properties.jumlah)
-                            };
+                };
+                const url = "/mapsJSON";
+                $.ajax({
+                    url: url
+                    , type: "GET"
+                    , cache: true
+                    , beforeSend: function() {
+                        console.log('before cache');
+                        $('#loader').show();
+                        if (localCache.exist(url)) {
+                            console.log('ada cache');
+                            doSomething(localCache.get(url));
+                            return false;
                         }
-                        , onEachFeature: function(feature, layer) {
-                            var label = L.marker(layer.getBounds().getCenter(), {
-                                    icon: L.divIcon({
-                                        className: 'label'
-                                        , html: "<span style='color:black'>" + feature.properties.jumlah + "<span>"
-                                        , iconSize: [40, 40]
-                                    })
-                                }).addTo(map)
-                                .bindTooltip('<p style="font-size: 10px; color:black; line-height:14px; margin-bottom:0px;">Kabupaten : <b>' + feature.properties.NAME_2 + '</b><br> Jumlah : ' + feature.properties.jumlah + '</p>', {
-                                    direction: 'top'
-                                });
-                        }
+                        return true;
+                    }
+                    , complete: function(jqXHR, textStatus) {
+                        localCache.set(url, jqXHR, doSomething);
+                    }
+                })
+
+                function doSomething(data) {
+                    console.log("data cachse");
+                    console.log(data.responseText);
+                    $('#loader').hide();
+                    $('#mapid').show();
+                    var map = L.map('mapid').setView([-4.516667, 119.683611], 7);
+                    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+                        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>'
+                        , maxZoom: 18
+                        , id: 'mapbox/streets-v11'
+                        , tileSize: 512
+                        , zoomOffset: -1
+                        , accessToken: 'pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw'
                     }).addTo(map);
+
+                    var maps = data.responseText;
+                    var data_maps = JSON.parse(maps);
+                    data_maps.forEach(data_maps_foreach)
+
+                    function get_color(jumlah) {
+                        let color = "";
+                        if (jumlah < 10000) {
+                            color = "#e6f5fe"
+                        }
+                        if (jumlah > 10000 && jumlah < 25000) {
+                            color = "#b5e2fd"
+                        }
+                        if (jumlah > 25000 && jumlah < 40000) {
+                            color = "#84cffd"
+                        }
+                        if (jumlah > 40000 && jumlah < 50000) {
+                            color = "#53bcfc"
+                        }
+                        if (jumlah > 50000) {
+                            color = "#0aa0fb"
+                        }
+                        return color;
+                    }
+
+                    function data_maps_foreach(item) {
+                        L.geoJson(item, {
+                            style: function(feature) {
+                                return {
+                                    fillOpacity: 0.8
+                                    , weight: 1
+                                    , opacity: 1
+                                    , color: "black"
+                                    , fillColor: get_color(feature.properties.jumlah)
+                                };
+                            }
+                            , onEachFeature: function(feature, layer) {
+                                var label = L.marker(layer.getBounds().getCenter(), {
+                                        icon: L.divIcon({
+                                            className: 'label'
+                                            , html: "<span style='color:black'>" + feature.properties.jumlah + "<span>"
+                                            , iconSize: [40, 40]
+                                        })
+                                    }).addTo(map)
+                                    .bindTooltip('<p style="font-size: 10px; color:black; line-height:14px; margin-bottom:0px;">Kabupaten : <b>' + feature.properties.NAME_2 + '</b><br> Jumlah : ' + feature.properties.jumlah + '</p>', {
+                                        direction: 'top'
+                                    });
+                            }
+                        }).addTo(map);
+                    }
                 }
 
             </script>
@@ -209,20 +258,17 @@
     </div>
 </div>
 
-<div style="display: none;">
-    @php $no = 0 @endphp
-    @foreach($data2 as $xdata2)
-    @php $no++ @endphp
-    <input type="text" id="a{{ $no }}" value="{{ $xdata2->nama_kab }}">
-    <input type="text" id="b{{ $no }}" value="{{ $xdata2->jumlah }}">
-    @endforeach
-</div>
 <div class="testimonials section py-4">
     <div class="container">
         <h5 class="section-title text-center m-5">Grafik</h5>
         <div class="contact-form col-sm-12 col-md-12 col-lg-12 p-5 mb-4 card">
             <div class="container">
-                <canvas id="canvas"></canvas>
+                <div id="loaderchart" style="display: none; text-align:center;">
+                    <div class="spinner-border text-primary" style="width: 10rem; height: 10rem; text-align:center;" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                </div>
+                <canvas id="canvas" style="display: none"></canvas>
             </div>
         </div>
     </div>
@@ -329,181 +375,49 @@
 <script src="https://www.chartjs.org/samples/latest/utils.js"></script>
 
 <script>
-    var a1 = $('#a1').val();
-    var a2 = $('#a2').val();
-    var a3 = $('#a3').val();
-    var a4 = $('#a4').val();
-    var a5 = $('#a5').val();
-    var a6 = $('#a6').val();
-    var a7 = $('#a7').val();
-    var a8 = $('#a8').val();
-    var a9 = $('#a9').val();
-    var a10 = $('#a10').val();
-    var a11 = $('#a11').val();
-    var a12 = $('#a12').val();
-    var a13 = $('#a13').val();
-    var a14 = $('#a14').val();
-    var a15 = $('#a15').val();
-    var a16 = $('#a16').val();
-    var a17 = $('#a17').val();
-    var a18 = $('#a18').val();
-    var a19 = $('#a19').val();
-    var a20 = $('#a20').val();
-    var a21 = $('#a21').val();
-    var a22 = $('#a22').val();
-    var a23 = $('#a23').val();
-    var a24 = $('#a24').val();
-
-    var b1 = $('#b1').val();
-    var b2 = $('#b2').val();
-    var b3 = $('#b3').val();
-    var b4 = $('#b4').val();
-    var b5 = $('#b5').val();
-    var b6 = $('#b6').val();
-    var b7 = $('#b7').val();
-    var b8 = $('#b8').val();
-    var b9 = $('#b9').val();
-    var b10 = $('#b10').val();
-    var b11 = $('#b11').val();
-    var b12 = $('#b12').val();
-    var b13 = $('#b13').val();
-    var b14 = $('#b14').val();
-    var b15 = $('#b15').val();
-    var b16 = $('#b16').val();
-    var b17 = $('#b17').val();
-    var b18 = $('#b18').val();
-    var b19 = $('#b19').val();
-    var b20 = $('#b20').val();
-    var b21 = $('#b21').val();
-    var b22 = $('#b22').val();
-    var b23 = $('#b23').val();
-    var b24 = $('#b24').val();
-
-
-    var MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-    var color = Chart.helpers.color;
-    var horizontalBarChartData = {
-        labels: [a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, a22, a23, a24, ]
-        , datasets: [{
-            label: 'Jumlah Penerima'
-            , backgroundColor: color(window.chartColors.blue).alpha(0.5).rgbString()
-            , borderColor: window.chartColors.blue
-            , borderWidth: 1
-            , data: [
-                b1
-                , b2
-                , b3
-                , b4
-                , b5
-                , b6
-                , b7
-                , b8
-                , b9
-                , b10
-                , b11
-                , b12
-                , b13
-                , b14
-                , b15
-                , b16
-                , b17
-                , b18
-                , b19
-                , b20
-                , b21
-                , b22
-                , b23
-                , b24
-            ]
-        }]
-
-    };
-
-    window.onload = function() {
-        var ctx = document.getElementById('canvas').getContext('2d');
-        window.myHorizontalBar = new Chart(ctx, {
-            type: 'horizontalBar'
-            , data: horizontalBarChartData
-            , options: {
-                // Elements options apply to all of the options unless overridden in a dataset
-                // In this case, we are setting the border of each horizontal bar to be 2px wide
-                elements: {
-                    rectangle: {
-                        borderWidth: 2
+    $.ajax({
+        url: "/getChart"
+        , type: "GET"
+        , cache: true
+        , beforeSend: function() {
+            $('#loaderchart').show();
+        }
+        , success: function(data_success) {
+            $('#loaderchart').hide();
+            $('#canvas').show();
+            var data1 = data_success[0];
+            var data2 = data_success[1];
+            var color = Chart.helpers.color;
+            var ctx = document.getElementById('canvas').getContext('2d');
+            var chart = new Chart(ctx, {
+                type: 'horizontalBar'
+                , data: {
+                    labels: data1
+                    , datasets: [{
+                        label: 'Jumlah Perima Bantuan'
+                        , backgroundColor: color(window.chartColors.blue).alpha(0.5).rgbString()
+                        , borderColor: window.chartColors.blue
+                        , data: data2
+                    }]
+                }
+                , options: {
+                    elements: {
+                        rectangle: {
+                            borderWidth: 2
+                        , }
+                    }
+                    , responsive: true
+                    , legend: {
+                        position: 'right'
                     , }
+                    , title: {
+                        display: true
+                        , text: 'Data'
+                    }
                 }
-                , responsive: true
-                , legend: {
-                    position: 'right'
-                , }
-                , title: {
-                    display: true
-                    , text: 'Data'
-                }
-            }
-        });
-
-    };
-
-    document.getElementById('randomizeData').addEventListener('click', function() {
-        var zero = Math.random() < 0.2 ? true : false;
-        horizontalBarChartData.datasets.forEach(function(dataset) {
-            dataset.data = dataset.data.map(function() {
-                return zero ? 0.0 : randomScalingFactor();
             });
-
-        });
-        window.myHorizontalBar.update();
-    });
-
-    var colorNames = Object.keys(window.chartColors);
-
-    document.getElementById('addDataset').addEventListener('click', function() {
-        var colorName = colorNames[horizontalBarChartData.datasets.length % colorNames.length];
-        var dsColor = window.chartColors[colorName];
-        var newDataset = {
-            label: 'Dataset ' + (horizontalBarChartData.datasets.length + 1)
-            , backgroundColor: color(dsColor).alpha(0.5).rgbString()
-            , borderColor: dsColor
-            , data: []
-        };
-
-        for (var index = 0; index < horizontalBarChartData.labels.length; ++index) {
-            newDataset.data.push(randomScalingFactor());
-        }
-
-        horizontalBarChartData.datasets.push(newDataset);
-        window.myHorizontalBar.update();
-    });
-
-    document.getElementById('addData').addEventListener('click', function() {
-        if (horizontalBarChartData.datasets.length > 0) {
-            var month = MONTHS[horizontalBarChartData.labels.length % MONTHS.length];
-            horizontalBarChartData.labels.push(month);
-
-            for (var index = 0; index < horizontalBarChartData.datasets.length; ++index) {
-                horizontalBarChartData.datasets[index].data.push(randomScalingFactor());
-            }
-
-            window.myHorizontalBar.update();
         }
     });
-
-    document.getElementById('removeDataset').addEventListener('click', function() {
-        horizontalBarChartData.datasets.pop();
-        window.myHorizontalBar.update();
-    });
-
-    document.getElementById('removeData').addEventListener('click', function() {
-        horizontalBarChartData.labels.splice(-1, 1); // remove the label first
-
-        horizontalBarChartData.datasets.forEach(function(dataset) {
-            dataset.data.pop();
-        });
-
-        window.myHorizontalBar.update();
-    });
-
 </script>
 
 @endpush
