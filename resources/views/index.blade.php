@@ -176,15 +176,15 @@
                     , cache: true
                     , beforeSend: function() {
                         $('#loader').show();
-                        if (localCache.exist(url)) {
+                        if (localCache.exist(url_maps)) {
                             console.log('ada cache');
-                            doSomething(localCache.get(url));
+                            doSomething(localCache.get(url_maps));
                             return false;
                         }
                         return true;
                     }
                     , complete: function(jqXHR, textStatus) {
-                        localCache.set(url, jqXHR, doSomething);
+                        localCache.set(url_maps, jqXHR, doSomething);
                     }
                 })
 
