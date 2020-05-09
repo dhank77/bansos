@@ -148,6 +148,8 @@
             <div id="mapid" style="display: none"> </div>
             <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
             <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
+            {{-- <script src="https://unpkg.com/esri-leaflet@2.4.0/dist/esri-leaflet.js"></script> --}}
+
             <script>
                 var localCache = {
                     data: {}
@@ -167,13 +169,12 @@
                         if ($.isFunction(callback)) callback(cachedData);
                     }
                 };
-                const url = "/mapsJSON";
+                const url_maps = "/mapsJSON";
                 $.ajax({
-                    url: url
+                    url: url_maps
                     , type: "GET"
                     , cache: true
                     , beforeSend: function() {
-                        console.log('before cache');
                         $('#loader').show();
                         if (localCache.exist(url)) {
                             console.log('ada cache');
@@ -188,8 +189,6 @@
                 })
 
                 function doSomething(data) {
-                    console.log("data cachse");
-                    console.log(data.responseText);
                     $('#loader').hide();
                     $('#mapid').show();
                     var map = L.map('mapid').setView([-4.516667, 119.683611], 7);
@@ -201,6 +200,8 @@
                         , zoomOffset: -1
                         , accessToken: 'pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw'
                     }).addTo(map);
+                    //var layer = L.esri.basemapLayer('DarkGray').addTo(map);
+                    //map.addLayer(layer);
 
                     var maps = data.responseText;
                     var data_maps = JSON.parse(maps);
@@ -293,7 +294,6 @@
             , "language": {
                 "processing": 'Memuat...'
             }
-            , "destroy": true
             , "serverSide": true
             , "scrollX": true
             , "ajax": "/panel/data/bansos/index/json/" + kab + "/" + kec + "/" + kel
@@ -418,6 +418,7 @@
             });
         }
     });
+
 </script>
 
 @endpush
